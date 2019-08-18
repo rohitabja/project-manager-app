@@ -1,0 +1,22 @@
+
+.column {
+    float: left;
+    width: 25%;
+    padding: 10px;
+    background: lightgrey
+}
+  
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.searchBar {
+    padding-top: 20px;
+}
+
+.btn-group {
+    padding-left: 50%;
+}

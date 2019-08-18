@@ -1,0 +1,17 @@
+.field-width {
+    width: 30%;
+    padding-right: 10px
+}
+
+.table-wrap {
+    height: 300px;
+    overflow-y: auto;
+}
+
+mat-grid-tile {
+    background: lightgrey;
+}
+
+.btn-group {
+    padding-left: 50%;
+}

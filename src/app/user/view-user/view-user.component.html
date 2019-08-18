@@ -1,0 +1,26 @@
+<div class="container" style="border-top-style: solid; border-top-color: grey">
+  <div class="searchBar">
+    <input [(ngModel)]="searchText" placeholder="Search User">
+    <div class="btn-group">
+      <label>Sort:</label>
+      <button class="btn btn-primary" type="button" (click)="field = 'firstName'">First Name</button>
+      <button class="btn btn-primary" type="button" (click)="field = 'lastName'">Last Name</button>
+      <button class="btn btn-primary" type="button" (click)="field = 'employeeId'">Employee Id</button>
+    </div>
+  </div>
+  <div>
+    <ul class="list-group list-group-flush" *ngFor="let user of users | search: searchText: 'user' | sort: field">
+      <div style="margin-top: 20px;">
+        <li class="list-group-item">{{user.firstName}}</li>
+        <li class="list-group-item">{{user.lastName}}</li>
+        <li class="list-group-item">{{user.employeeId}}</li>
+      </div>
+      <div class="list-element">
+        <div class="btn-toolbar">
+          <button class="btn btn-primary" routerLink="/addUser/{{user.userId}}">Edit</button>
+          <button class="btn btn-primary" (click)="deleteUser(user)">Delete</button>
+        </div>
+      </div>
+    </ul>
+  </div>
+</div>

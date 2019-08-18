@@ -1,0 +1,12 @@
+.list-element {
+    display: inline-block;
+    float: left;
+}
+
+.searchBar {
+    padding-top: 20px;
+}
+
+.btn-group {
+    padding-left: 50%;
+}

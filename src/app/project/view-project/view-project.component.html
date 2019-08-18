@@ -1,0 +1,49 @@
+<div class="container" style="margin-top: 20px; border-top-style: solid; border-top-color: grey">
+  <div class="searchBar">
+    <input [(ngModel)]="searchText" placeholder="Search Project">
+    <div class="btn-group">
+      <label>Sort:</label>
+      <button class="btn btn-primary" type="button" (click)="field = 'startDate'">Start Date</button>
+      <button class="btn btn-primary" type="button" (click)="field = 'endDate'">End Date</button>
+      <button class="btn btn-primary" type="button" (click)="field = 'priority'">Priotity</button>
+      <button class="btn btn-primary" type="button" (click)="field = 'noOfTasksCompleted'">Completed</button>
+    </div>
+  </div>
+  <div style="margin-top: 20px;">
+    <mat-accordion *ngFor="let project of projects | search: searchText: 'project' | sort: field">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <label>Project</label> {{project.projectName}}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div>
+          <div class="row">
+            <div class="column">
+              <label>No of tasks:</label>{{project.tasks?.length || '0'}}
+            </div>
+            <div class="column">
+              <label>Completed:</label>{{project.noOfTasksCompleted}}
+            </div>
+            <div class="column">
+              <label>Priority:</label>{{project.priority}}
+            </div>
+            <div>
+              <button type="submit" class="btn btn-primary" routerLink="/addProject/{{project.projectId}}">Edit</button>
+              <button type="submit" class="btn btn-secondary">Suspend</button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="column">
+              <label>Start Date:</label>{{project.startDate}}
+            </div>
+            <div class="column">
+              <label>End Date:</label>{{project.endDate}}
+            </div>
+            <div class="column"></div>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+</div>

@@ -1,0 +1,132 @@
+<div class="container" style="margin-top: 100px;">
+  <div class="row"  *ngIf="errorMessage">
+    <div class="col-xs-12">
+      <p class="alert alert-danger">
+        <strong>{{errorMessage}}</strong>
+        <button style="float: right;" (click)="errorMessage = null">Clear</button>
+      </p>
+    </div>
+  </div>
+  <div>
+    <div class="row">
+      <div class="col-sm-8 offset-sm-2">
+        <div>
+          <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+                <div>
+                  <label>Project: </label>
+                  <mat-form-field class="field-width">
+                      <input type="text" 
+                              placeholder="Select project" 
+                              matInput 
+                              formControlName="project" 
+                              [matAutocomplete]="autoProject">
+                      <mat-autocomplete #autoProject="matAutocomplete" [displayWith]="displayProjectFn">
+                        <mat-option *ngFor="let project of filteredProjects | async" [value]="project">
+                            {{project.projectName}}
+                        </mat-option>
+                      </mat-autocomplete>
+                  </mat-form-field>
+                </div>
+                <div>
+                  <label>Task: </label>
+                  <mat-form-field class="field-width">
+                      <input matInput 
+                              placeholder="Task Name" 
+                              name="taskName"
+                              formControlName="taskName">
+                  </mat-form-field>
+                </div>
+                <div>
+                  <mat-checkbox formControlName="parent"> 
+                    <label>Parent Task</label> 
+                  </mat-checkbox>
+                </div>
+                <div>
+                  <label>Parent Task: </label>
+                  <mat-form-field class="field-width">
+                      <input type="text" 
+                              placeholder="Select parent task" 
+                              matInput 
+                              formControlName="parentTask"
+                              [matAutocomplete]="autoParent">
+                      <mat-autocomplete #autoParent="matAutocomplete" [displayWith]="displayParentFn">
+                        <mat-option *ngFor="let parentTask of filteredParentTasks | async" [value]="parentTask">
+                            {{parentTask.parentTaskName}}
+                        </mat-option>
+                      </mat-autocomplete>
+                  </mat-form-field>
+                </div>
+                <div>
+                  <label>Priority:</label>
+                  <mat-slider
+                    max="30"
+                    min="0"
+                    step="1"
+                    thumbLabel
+                    formControlName="priority">
+                    </mat-slider>
+                </div>
+                <div>
+                  <label>Start Date: </label>
+                  <mat-form-field class="field-width">
+                    <input matInput 
+                            [matDatepicker]="startDatePicker"
+                            [(ngModel)]="startDateInput" 
+                            name="startDate" 
+                            placeholder="Choose start date" 
+                            class="form-control"
+                            formControlName="startDate"
+                            [max]="endDateInput"
+                            readonly>
+                    <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+                    <mat-datepicker #startDatePicker>
+                    </mat-datepicker>
+                  </mat-form-field>
+                </div>
+                <div>
+                  <label>End Date: </label>
+                  <mat-form-field class="field-width">
+                    <input matInput 
+                            [matDatepicker]="endDatePicker"
+                            [(ngModel)]="endDateInput"
+                            name="endtDate" 
+                            placeholder="Choose end date" 
+                            class="form-control"
+                            formControlName="endDate"
+                            [min]="startDateInput"
+                            readonly>
+                    <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+                    <mat-datepicker #endDatePicker>
+                    </mat-datepicker>
+                  </mat-form-field>
+                </div>
+                <div>
+                  <label>User: </label>
+                  <mat-form-field class="field-width">
+                      <input type="text" 
+                              placeholder="Select user" 
+                              matInput 
+                              formControlName="user"
+                              [matAutocomplete]="autoUser">
+                      <mat-autocomplete #autoUser="matAutocomplete" [displayWith]="displayUserFn">
+                      <mat-option *ngFor="let user of filteredUsers | async" [value]="user">
+                          {{user.firstName}} {{user.lastName}} ({{user.employeeId}})
+                      </mat-option>
+                      </mat-autocomplete>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="btn-toolbar">
+                  <button type="submit" class="btn btn-primary" [disabled]="!taskForm.valid || shouldDisableSubmit()" *ngIf="!taskForm.get('taskId').value">Add</button>
+                  <button type="submit" class="btn btn-primary" [disabled]="!taskForm.valid || shouldDisableSubmit()" *ngIf="taskForm.get('taskId').value">Update</button>
+                  <button type="reset" class="btn btn-secondary">Reset</button>
+              </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
